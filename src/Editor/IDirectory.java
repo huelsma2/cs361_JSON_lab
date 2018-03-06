@@ -1,9 +1,8 @@
 package Editor;
-import java.util.Collection;
-
 
 public interface IDirectory {
-	void add(Collection<Employee> e);
+	
+	void add(String json);
 	void print();
 	void clear();
 }
