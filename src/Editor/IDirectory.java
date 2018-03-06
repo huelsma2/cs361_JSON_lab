@@ -1,6 +1,5 @@
+package Editor;
 import java.util.Collection;
-
-import Editor.Employee;
 
 
 public interface IDirectory {
