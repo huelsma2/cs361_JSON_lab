@@ -1,5 +1,10 @@
 package Editor;
 
+/**
+ * Employee class which holds first name, last name, phone number, and department
+ * @author Andrew Huelsman
+ *
+ */
 public class Employee {
 
 	private String _fname, _lname, _phone, _department;

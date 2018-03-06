@@ -1,13 +1,19 @@
 package Editor;
 
+import Directory_Server.MainDirectory;
 
+/**
+ * Routes information from some source to a directory
+ * @author Andrew Huelsman
+ *
+ */
 public class DirectoryProxy implements IDirectory{
 
 	IDirectory _dir;
 	
-	public DirectoryProxy(IDirectory e)
+	public DirectoryProxy()
 	{
-		_dir = e;
+		_dir = new MainDirectory();
 	}
 	
 	@Override
