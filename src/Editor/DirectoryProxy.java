@@ -1,25 +1,25 @@
 package Editor;
 
 import java.util.Collection;
+import Directory_Server.MainDirectory;
 
 public class DirectoryProxy implements IDirectory{
 
+	MainDirectory _dir;
+	
 	@Override
 	public void print() {
-		// TODO Auto-generated method stub
-		
+		_dir.print();
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		_dir.clear();
 	}
 
 	@Override
 	public void add(String json) {
-		// TODO Auto-generated method stub
-		
+		_dir.add(json);
 	}
 
 }
