@@ -3,10 +3,13 @@ package Editor;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.google.gson.Gson;
+
 public class DirectoryEditor {
 	private static DirectoryProxy _proxy = new DirectoryProxy();
 	static Scanner stdin = new Scanner(System.in);
 	private static final ArrayList<String> _VALIDCOMMANDS = new ArrayList<String>();
+	private static ArrayList<String[]> _employees = new ArrayList<String[]>();
 	static {
 		_VALIDCOMMANDS.add("ADD");
 		_VALIDCOMMANDS.add("PRINT");
@@ -38,7 +41,26 @@ public class DirectoryEditor {
 	}
 	
 	private static void runInput() {
-		
+		System.out.println("Enter employee (First Name, Last Name, Department, Phone #):");
+		String input = stdin.nextLine();
+		if(input.toUpperCase().equals("END")) sendAdd();
+		String[] inputArray = input.split(" ");
+		if(inputArray.length != 4) {
+			System.out.println("Invalid employee input");
+			runInput();
+		}
+		_employees.add(inputArray);
+	}
+	
+	private static void sendAdd() {
+		Gson g = new Gson();
+		ArrayList<Employee> p = new ArrayList<Employee>();
+		for(String[] eData: _employees) {
+			p.add( new Employee(eData[0], eData[1], eData[2], eData[3]));
+		}
+		_employees.clear();
+		String out = g.toJson(p);
+		_proxy.add(out);
 	}
 	
 	private static void exitDirectory() {
