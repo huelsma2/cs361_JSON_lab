@@ -1,13 +1,11 @@
 package Editor;
 
-import java.util.Collection;
-import Directory_Server.MainDirectory;
 
 public class DirectoryProxy implements IDirectory{
 
-	MainDirectory _dir;
+	IDirectory _dir;
 	
-	public DirectoryProxy(MainDirectory e)
+	public DirectoryProxy(IDirectory e)
 	{
 		_dir = e;
 	}

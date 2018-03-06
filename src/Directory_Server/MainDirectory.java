@@ -26,6 +26,11 @@ public class MainDirectory  implements IDirectory{
 	
 	public void print(){
 		
+		if(dir.size()==0)
+			{
+			System.out.println("<empty directory>");
+			return;
+			}
 		for(int i = 0; i<dir.size(); i++){
 			
 			System.out.println(dir.get(i).toString());
