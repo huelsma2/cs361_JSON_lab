@@ -1,5 +1,5 @@
 package Editor;
 
-public class DirectoryProxy {
+public class DirectoryProxy implements IDirectory{
 
 }
