@@ -7,6 +7,11 @@ public class DirectoryProxy implements IDirectory{
 
 	MainDirectory _dir;
 	
+	public DirectoryProxy(MainDirectory e)
+	{
+		_dir = e;
+	}
+	
 	@Override
 	public void print() {
 		_dir.print();
