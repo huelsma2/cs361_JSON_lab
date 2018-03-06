@@ -23,13 +23,18 @@ public class MainDirectory  implements IDirectory{
 	
 	public void print(){
 		
-		
+		for(int i = 0; i<dir.size(); i++){
+			
+			System.out.println(dir.get(i).toString());
+			
+		}
 		
 	}
 	
 	public void clear(){
 		
+		dir.clear();
+		
 	}
-	
 	
 }
