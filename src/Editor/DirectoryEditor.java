@@ -16,14 +16,16 @@ public class DirectoryEditor {
 		_VALIDCOMMANDS.add("CLEAR");
 	}
 	
-	public static void main() {
+	public static void main(String[] args) {
 		 System.out.println("Enter command or HELP");
 		 String input = stdin.nextLine();
 		 if(input.toUpperCase().equals("HELP")) printHelp();
 		 else if(input.toUpperCase().equals("EXIT")) exitDirectory();
 		 else runCommand(input.toUpperCase());
-		 main();
+		 main(args);
 	}
+	
+	
 	
 	private static void printHelp() {
 		System.out.println("Commands are:\n"
@@ -34,7 +36,7 @@ public class DirectoryEditor {
 	}
 	
 	private static void runCommand(String command) {
-		if(!_VALIDCOMMANDS.contains(command)) main();
+		if(!_VALIDCOMMANDS.contains(command)) main(null);
 		if(command.equals("ADD")) runInput();
 		else if(command.equals("PRINT")) _proxy.print();
 		else _proxy.clear();
@@ -43,13 +45,17 @@ public class DirectoryEditor {
 	private static void runInput() {
 		System.out.println("Enter employee (First Name, Last Name, Department, Phone #):");
 		String input = stdin.nextLine();
-		if(input.toUpperCase().equals("END")) sendAdd();
+		if(input.toUpperCase().equals("END")) {
+			sendAdd();
+			return;
+		}
 		String[] inputArray = input.split(" ");
 		if(inputArray.length != 4) {
 			System.out.println("Invalid employee input");
 			runInput();
 		}
 		_employees.add(inputArray);
+		runInput();
 	}
 	
 	private static void sendAdd() {
