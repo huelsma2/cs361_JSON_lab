@@ -1,3 +1,6 @@
+/**
+ * @author Andrew Yehle, Michael Davis
+ */
 package Directory_Server;
 
 import java.util.ArrayList;
