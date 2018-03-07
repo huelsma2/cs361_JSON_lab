@@ -8,7 +8,14 @@ package Editor;
 public class Employee {
 
 	private String _fname, _lname, _phone, _department;
-	
+
+	public String get_lname() {
+		return _lname;
+	}
+	public String get_fname() {
+		return _fname;
+	}
+
 	public Employee(String fname, String lname, String phone, String dept)
 	{
 		this._fname = fname;
