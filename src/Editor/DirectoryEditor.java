@@ -119,13 +119,11 @@ public class DirectoryEditor {
 			return;
 		}
 		String[] inputArray = input.split(" ");
-		boolean valid = true;
 		if(inputArray.length != 4) {
 			System.out.println("Invalid employee input");
-			valid = false;
+			return;
 		}
-		if(valid)
-			_employees.add(inputArray);
+		_employees.add(inputArray);
 		runInput(file);
 	}
 	
