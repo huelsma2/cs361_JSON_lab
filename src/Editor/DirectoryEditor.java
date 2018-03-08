@@ -1,3 +1,5 @@
+
+
 package Editor;
 
 import java.io.IOException;
@@ -7,6 +9,11 @@ import java.util.Scanner;
 
 import com.google.gson.Gson;
 
+/**
+ * 
+ * @author Steven Messer
+ *
+ */
 public class DirectoryEditor {
 	private static DirectoryProxy _proxy = new DirectoryProxy();
 	static Scanner stdin = new Scanner(System.in);
