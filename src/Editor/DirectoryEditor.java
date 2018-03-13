@@ -106,11 +106,11 @@ public class DirectoryEditor {
 	}
 	
 	private static void print() {
-		_proxy.runCommand("PRINT");
+		_proxy.print("PRINT");
 	}
 	
 	private static void clear() {
-		_proxy.runCommand("CLEAR");
+		_proxy.clear("CLEAR");
 	}
 	
 	/** Collects the stream of employee input data until the End command is passed
@@ -148,7 +148,7 @@ public class DirectoryEditor {
 		_employees.clear();
 		String out = g.toJson(p);
 		out = "ADD " + out;
-		_proxy.runCommand(out);
+		_proxy.add(out);
 	}
 	
 	/** Exits directory editor

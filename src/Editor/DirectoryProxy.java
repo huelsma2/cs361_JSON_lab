@@ -7,7 +7,7 @@ import java.net.URL;
 
 /**
  * Routes information from some source to a directory
- * @author Andrew Huelsman
+ * @author Andrew Huelsman / Steven Messer
  *
  */
 public class DirectoryProxy implements IDirectory{
@@ -58,8 +58,19 @@ public class DirectoryProxy implements IDirectory{
 	}
 
 	@Override
-	public void runCommand(String json) {
+	public void add(String json) {
 		send(json);
 	}
+
+	@Override
+	public void print(String json) {
+		send(json);
+	}
+
+	@Override
+	public void clear(String json) {
+		send(json);
+	}
+	
 
 }

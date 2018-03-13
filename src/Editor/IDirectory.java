@@ -7,5 +7,7 @@ package Editor;
  */
 public interface IDirectory {
 	
-	void runCommand(String json);
+	void add(String json);
+	void print(String json);
+	void clear(String json);
 }

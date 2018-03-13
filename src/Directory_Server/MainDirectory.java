@@ -61,7 +61,13 @@ public class MainDirectory  implements IDirectory{
 	}
 
 	@Override
-	public void runCommand(String json) {
+	public void print(String json) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clear(String json) {
 		// TODO Auto-generated method stub
 		
 	}
