@@ -18,28 +18,32 @@ public class Employee {
 
 	public Employee(String fname, String lname, String dept, String phone, String gender, String title)
 	{
-		this._fname = fname;
-		this._lname = lname;
-		this._phone = phone;
-		this._department = dept;
-		this._gender=gender;
-		this._title=title;
+		_fname = fname;
+		_lname = lname;
+		_phone = phone;
+		_department = dept;
+		_gender=gender;
+		_title=title;
 	}
 
-	public void set_fname(String _fname) {
-		this._fname = _fname;
+	public void set_fname(String fname) {
+		_fname = fname;
 	}
 
-	public void set_lname(String _lname) {
-		this._lname = _lname;
+	public void set_lname(String lname) {
+		_lname = lname;
 	}
 
-	public void set_phone(String _phone) {
-		this._phone = _phone;
+	public void set_phone(String phone) {
+		_phone = phone;
 	}
 
-	public void set_department(String _department) {
-		this._department = _department;
+	public void set_department(String department) {
+		_department = department;
+	}
+	
+	public void set_gender(String gender) {
+		_gender = gender;
 	}
 	
 	

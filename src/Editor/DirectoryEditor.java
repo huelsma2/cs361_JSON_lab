@@ -2,11 +2,8 @@
 
 package Editor;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -104,8 +101,22 @@ public class DirectoryEditor {
 		if(file) System.out.println(command);
 		if(!_VALIDCOMMANDS.contains(command)) return;
 		if(command.equals("ADD")) runInput(file);
-		else if(command.equals("PRINT")) _proxy.print();
-		else _proxy.clear();
+		else if(command.equals("PRINT")) print();
+		else clear();
+	}
+	
+	private static void print() {
+		Gson g = new Gson();
+		String command = "PRINT";
+		String out = g.toJson(command);
+		_proxy.runCommand(out);
+	}
+	
+	private static void clear() {
+		Gson g = new Gson();
+		String command = "CLEAR";
+		String out = g.toJson(command);
+		_proxy.runCommand(out);
 	}
 	
 	/** Collects the stream of employee input data until the End command is passed
@@ -145,7 +156,7 @@ public class DirectoryEditor {
 		command[0] = "ADD";
 		command[1] = p;
 		String out = g.toJson(command);
-		_proxy.add(out);
+		_proxy.runCommand(out);
 	}
 	
 	/** Exits directory editor
