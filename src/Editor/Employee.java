@@ -7,7 +7,7 @@ package Editor;
  */
 public class Employee {
 
-	private String _fname, _lname, _phone, _department;
+	private String _fname, _lname, _phone, _department, _title, _gender;
 
 	public String get_lname() {
 		return _lname;
@@ -16,12 +16,14 @@ public class Employee {
 		return _fname;
 	}
 
-	public Employee(String fname, String lname, String phone, String dept)
+	public Employee(String fname, String lname, String dept, String phone, String gender, String title)
 	{
 		this._fname = fname;
 		this._lname = lname;
 		this._phone = phone;
 		this._department = dept;
+		this._gender=gender;
+		this._title=title;
 	}
 
 	public void set_fname(String _fname) {
@@ -44,6 +46,6 @@ public class Employee {
 	@Override
 	public String toString()
 	{
-		return _lname + ", " + _fname + " " + _phone + " " + _department;
+		return _title + " " + _lname + ", " + _fname + " (" + _gender + ") in " + _department + " Contact: "+ _phone;
 	}
 }

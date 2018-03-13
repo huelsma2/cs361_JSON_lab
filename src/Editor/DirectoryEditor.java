@@ -111,7 +111,7 @@ public class DirectoryEditor {
 	 * 			If this is true, employee data is echo'd to the console if they came from a file
 	 */
 	private static void runInput(boolean file) {
-		System.out.println("Enter employee (First Name, Last Name, Department, Phone #):");
+		System.out.println("Enter employee (First Name, Last Name, Department, Phone #, Gender, Title):");
 		String input = stdin.nextLine();
 		if(file) System.out.println(input);
 		if(input.toUpperCase().equals("END")) {
@@ -119,7 +119,7 @@ public class DirectoryEditor {
 			return;
 		}
 		String[] inputArray = input.split(" ");
-		if(inputArray.length != 4) {
+		if(inputArray.length != 6) {
 			System.out.println("Invalid employee input");
 			runInput(file);
 			return;
@@ -135,7 +135,7 @@ public class DirectoryEditor {
 		Gson g = new Gson();
 		ArrayList<Employee> p = new ArrayList<Employee>();
 		for(String[] eData: _employees) {
-			p.add( new Employee(eData[0], eData[1], eData[2], eData[3]));
+			p.add( new Employee(eData[0], eData[1], eData[2], eData[3], eData[4], eData[5]));
 		}
 		_employees.clear();
 		String out = g.toJson(p);
