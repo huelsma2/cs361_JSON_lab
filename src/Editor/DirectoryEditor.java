@@ -102,7 +102,7 @@ public class DirectoryEditor {
 		if(!_VALIDCOMMANDS.contains(command)) return;
 		if(command.equals("ADD")) runInput(file);
 		else if(command.equals("PRINT")) _proxy.print("PRINT");
-		else _proxy.clear("CLEAR");;
+		else _proxy.clear("CLEAR");
 	}
 	
 	/** Collects the stream of employee input data until the End command is passed
