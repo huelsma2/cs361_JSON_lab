@@ -106,17 +106,11 @@ public class DirectoryEditor {
 	}
 	
 	private static void print() {
-		Gson g = new Gson();
-		String command = "PRINT";
-		String out = g.toJson(command);
-		_proxy.runCommand(out);
+		_proxy.runCommand("PRINT");
 	}
 	
 	private static void clear() {
-		Gson g = new Gson();
-		String command = "CLEAR";
-		String out = g.toJson(command);
-		_proxy.runCommand(out);
+		_proxy.runCommand("CLEAR");
 	}
 	
 	/** Collects the stream of employee input data until the End command is passed
@@ -152,10 +146,8 @@ public class DirectoryEditor {
 			p.add( new Employee(eData[0], eData[1], eData[2], eData[3], eData[4], eData[5]));
 		}
 		_employees.clear();
-		Object[] command = new Object[2];
-		command[0] = "ADD";
-		command[1] = p;
-		String out = g.toJson(command);
+		String out = g.toJson(p);
+		out = "ADD " + out;
 		_proxy.runCommand(out);
 	}
 	

@@ -19,7 +19,7 @@ public class DirectoryProxy implements IDirectory{
 		System.out.println("in the client");
 
 		// Client will connect to this location
-		URL site = new URL("http://localhost:8000/sendresults");
+		URL site = new URL("http://129.89.143.92:8000/sendresults");
 		HttpURLConnection conn = (HttpURLConnection) site.openConnection();
 
 		// now create a POST request
@@ -59,7 +59,6 @@ public class DirectoryProxy implements IDirectory{
 
 	@Override
 	public void runCommand(String json) {
-		
 		send(json);
 	}
 
