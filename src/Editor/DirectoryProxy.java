@@ -15,46 +15,46 @@ public class DirectoryProxy implements IDirectory{
 	IDirectory _dir;
 	
 	private void send(String Json){
-	try {
-		System.out.println("in the client");
+		try {
+			System.out.println("in the client");
+			
+			// Client will connect to this location
+			URL site = new URL("http://129.89.143.92:8000/sendresults");
+			HttpURLConnection conn = (HttpURLConnection) site.openConnection();
 
-		// Client will connect to this location
-		URL site = new URL("http://129.89.143.92:8000/sendresults");
-		HttpURLConnection conn = (HttpURLConnection) site.openConnection();
+			// now create a POST request
+			conn.setRequestMethod("POST");
+			conn.setDoOutput(true);
+			conn.setDoInput(true);
+			DataOutputStream out = new DataOutputStream(conn.getOutputStream());
 
-		// now create a POST request
-		conn.setRequestMethod("POST");
-		conn.setDoOutput(true);
-		conn.setDoInput(true);
-		DataOutputStream out = new DataOutputStream(conn.getOutputStream());
+			// build a string that contains JSON from console
+			String content = "";
+			content = Json;
 
-		// build a string that contains JSON from console
-		String content = "";
-		content = Json;
+			// write out string to output buffer for message
+			out.writeBytes(content);
+			out.flush();
+			out.close();
 
-		// write out string to output buffer for message
-		out.writeBytes(content);
-		out.flush();
-		out.close();
+			System.out.println("Done sent to server");
 
-		System.out.println("Done sent to server");
+			InputStreamReader inputStr = new InputStreamReader(conn.getInputStream());
 
-		InputStreamReader inputStr = new InputStreamReader(conn.getInputStream());
+			// string to hold the result of reading in the response
+			StringBuilder sb = new StringBuilder();
 
-		// string to hold the result of reading in the response
-		StringBuilder sb = new StringBuilder();
+			// read the characters from the request byte by byte and build up
+			// the Response
+			int nextChar;
+			while ((nextChar = inputStr.read()) > -1) {
+				sb = sb.append((char) nextChar);
+			}
+			System.out.println("Return String: " + sb);
 
-		// read the characters from the request byte by byte and build up
-		// the Response
-		int nextChar;
-		while ((nextChar = inputStr.read()) > -1) {
-			sb = sb.append((char) nextChar);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		System.out.println("Return String: " + sb);
-
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
 	}
 
 	@Override
