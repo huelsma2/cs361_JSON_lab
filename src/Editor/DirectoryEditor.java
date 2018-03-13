@@ -2,8 +2,11 @@
 
 package Editor;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -138,7 +141,10 @@ public class DirectoryEditor {
 			p.add( new Employee(eData[0], eData[1], eData[2], eData[3], eData[4], eData[5]));
 		}
 		_employees.clear();
-		String out = g.toJson(p);
+		Object[] command = new Object[2];
+		command[0] = "ADD";
+		command[1] = p;
+		String out = g.toJson(command);
 		_proxy.add(out);
 	}
 	
