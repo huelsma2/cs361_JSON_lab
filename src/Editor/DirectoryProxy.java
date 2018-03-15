@@ -19,7 +19,8 @@ public class DirectoryProxy implements IDirectory{
 			System.out.println("in the client");
 			
 			// Client will connect to this location
-			URL site = new URL("http://localhost:8000/sendresults");
+			// TODO: Replace the IP with localhost to test it on one computer
+			URL site = new URL("http://129.89.130.117:8000/sendresults");
 			HttpURLConnection conn = (HttpURLConnection) site.openConnection();
 
 			// now create a POST request
