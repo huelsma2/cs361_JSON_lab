@@ -62,6 +62,7 @@ public class Interface {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		frame = new JFrame();
 		frame.setTitle("Lab 8 Interface");
 		frame.setBounds(100, 100, 450, 300);

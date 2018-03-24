@@ -20,7 +20,7 @@ public class DirectoryProxy implements IDirectory{
 			
 			// Client will connect to this location
 			// TODO: Replace the localhost with an IP to test sending it to another computer on a network
-			URL site = new URL("localhost:8000/sendresults");
+			URL site = new URL("http://localhost:8000/sendresults");
 			HttpURLConnection conn = (HttpURLConnection) site.openConnection();
 
 			// now create a POST request
