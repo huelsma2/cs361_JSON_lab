@@ -4,11 +4,16 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+
+import com.google.gson.Gson;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
@@ -18,6 +23,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class Interface {
@@ -34,6 +40,7 @@ public class Interface {
 	private JRadioButton rdbtnMale;
 	private JRadioButton rdbtnFemale;
 	private JRadioButton rdbtnOther;
+	private DirectoryProxy newProxy = new DirectoryProxy();
 
 	/**
 	 * Launch the application.
@@ -43,7 +50,7 @@ public class Interface {
 			public void run() {
 				try {
 					Interface window = new Interface();
-					window.frame.setVisible(true);
+					//window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -62,11 +69,11 @@ public class Interface {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
-		frame = new JFrame();
+		JFrame frame = new JFrame();
 		frame.setTitle("Lab 8 Interface");
 		frame.setBounds(100, 100, 450, 300);
 		frame.setResizable(false);
+		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -113,19 +120,6 @@ public class Interface {
 		phoneField.setBounds(304, 185, 120, 20);
 		frame.getContentPane().add(phoneField);
 		
-		btnSubmit = new JButton("Submit (send)");
-		btnSubmit.setBounds(10, 227, 120, 23);
-		frame.getContentPane().add(btnSubmit);
-		
-		btnExit = new JButton("Exit");
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		btnExit.setBounds(304, 227, 120, 23);
-		frame.getContentPane().add(btnExit);
-		
 		rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setBounds(90, 53, 80, 23);
 		frame.getContentPane().add(rdbtnMale);
@@ -142,12 +136,63 @@ public class Interface {
 		buttonGroup.add(rdbtnMale);
 		buttonGroup.add(rdbtnFemale);
 		buttonGroup.add(rdbtnOther);
+		buttonGroup.setSelected(rdbtnMale.getModel(), true);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Mr.", "Ms.", "Mrs.", "Dr.", "Col.", "Prof."}));
 		comboBox.setSelectedIndex(0);
 		comboBox.setBounds(12, 89, 80, 20);
 		frame.getContentPane().add(comboBox);
+		
+		btnSubmit = new JButton("Submit (send)");
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String fname = firstNameField.getText();
+				String lname = lastNameField.getText();
+				String dept = departmentField.getText();
+				String phone = phoneField.getText();
+				String gender;
+				if(rdbtnMale.isSelected()){
+					gender = "Male";
+				}else if(rdbtnFemale.isSelected()){
+					gender = "Female";
+				}else{
+					gender = "Other";
+				}
+				String title = (String) comboBox.getSelectedItem().toString();
+				if(firstNameField.getText().length() == 0 || lastNameField.getText().length() == 0
+						|| departmentField.getText().length() == 0 || phoneField.getText().length() == 0) return;
+				ArrayList<Employee> p = new ArrayList<Employee>();
+				Gson g = new Gson();
+				p.add( new Employee(fname, lname, dept, phone, gender, title));
+				String out = g.toJson(p);
+				out = "ADD " + out;
+				newProxy.add(out);
+				
+				firstNameField.setText("");
+				lastNameField.setText("");
+				departmentField.setText("");
+				phoneField.setText("");
+				comboBox.setSelectedIndex(0);
+				buttonGroup.setSelected(rdbtnMale.getModel(), true);
+				if(newProxy.serverReceived()){
+					JOptionPane.showMessageDialog(null, "Server received message!");
+				}else{
+					JOptionPane.showMessageDialog(null, "Server did not receive message.");
+				}
+			}
+		});
+		btnSubmit.setBounds(10, 227, 120, 23);
+		frame.getContentPane().add(btnSubmit);
+		
+		btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		btnExit.setBounds(304, 227, 120, 23);
+		frame.getContentPane().add(btnExit);
 		
 		JLabel lblGender = new JLabel("Gender");
 		lblGender.setBounds(12, 58, 80, 14);

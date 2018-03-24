@@ -14,6 +14,9 @@ public class DirectoryProxy implements IDirectory{
 
 	IDirectory _dir;
 	
+	// string to hold the result of reading in the response
+	private String receiveMessage = "";
+	
 	private void send(String Json){
 		try {
 			System.out.println("in the client");
@@ -41,7 +44,7 @@ public class DirectoryProxy implements IDirectory{
 			System.out.println("Done sent to server");
 
 			InputStreamReader inputStr = new InputStreamReader(conn.getInputStream());
-
+			
 			// string to hold the result of reading in the response
 			StringBuilder sb = new StringBuilder();
 
@@ -52,9 +55,24 @@ public class DirectoryProxy implements IDirectory{
 				sb = sb.append((char) nextChar);
 			}
 			System.out.println("Return String: " + sb);
+			receiveMessage = sb.toString();
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	/*
+	 * To be called after an add command to verify
+	 * server received/added to library
+	 */
+	public boolean serverReceived(){
+		if(receiveMessage.equals("ROGER JSON RECEIVED")){
+			receiveMessage = "";
+			return true;
+		}
+		else{
+			return false;
 		}
 	}
 
