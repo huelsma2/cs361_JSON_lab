@@ -41,6 +41,7 @@ public class Interface {
 	private JRadioButton rdbtnFemale;
 	private JRadioButton rdbtnOther;
 	private DirectoryProxy newProxy = new DirectoryProxy();
+	private ArrayList<Employee> toJsonString = new ArrayList<Employee>();
 
 	/**
 	 * Launch the application.
@@ -160,25 +161,50 @@ public class Interface {
 					gender = "Other";
 				}
 				String title = (String) comboBox.getSelectedItem().toString();
+				int submitCounter = 0;
+				int arraySize = toJsonString.size();
 				if(firstNameField.getText().length() == 0 || lastNameField.getText().length() == 0
-						|| departmentField.getText().length() == 0 || phoneField.getText().length() == 0) return;
-				ArrayList<Employee> p = new ArrayList<Employee>();
-				Gson g = new Gson();
-				p.add( new Employee(fname, lname, dept, phone, gender, title));
-				String out = g.toJson(p);
-				out = "ADD " + out;
-				newProxy.add(out);
-				
-				firstNameField.setText("");
-				lastNameField.setText("");
-				departmentField.setText("");
-				phoneField.setText("");
-				comboBox.setSelectedIndex(0);
-				buttonGroup.setSelected(rdbtnMale.getModel(), true);
-				if(newProxy.serverReceived()){
-					JOptionPane.showMessageDialog(null, "Server received message!");
+						|| departmentField.getText().length() == 0 || phoneField.getText().length() == 0){
+					Gson g = new Gson();
+					while(toJsonString.size() != 0){
+						String out = g.toJson(toJsonString.get(0));
+						out = "ADD " + out;
+						newProxy.add(out);
+						if(newProxy.serverReceived()){
+							submitCounter++;
+						}
+						toJsonString.remove(0);
+					}
+					if(submitCounter == arraySize && (submitCounter != 0)){
+						JOptionPane.showMessageDialog(null, "Server received message!");
+					}else{
+						JOptionPane.showMessageDialog(null, "Server did not receive message.");
+					}
 				}else{
-					JOptionPane.showMessageDialog(null, "Server did not receive message.");
+					Gson g = new Gson();
+					toJsonString.add( new Employee(fname, lname, dept, phone, gender, title));
+					arraySize = toJsonString.size();
+					while(toJsonString.size() != 0){
+						String out = g.toJson(toJsonString.get(0));
+						out = "ADD " + out;
+						newProxy.add(out);
+						if(newProxy.serverReceived()){
+							submitCounter++;
+						}
+						toJsonString.remove(0);
+					}
+					if(submitCounter == arraySize && (submitCounter != 0)){
+						JOptionPane.showMessageDialog(null, "Server received message!");
+					}else{
+						JOptionPane.showMessageDialog(null, "Server did not receive message.");
+					}
+					
+					firstNameField.setText("");
+					lastNameField.setText("");
+					departmentField.setText("");
+					phoneField.setText("");
+					comboBox.setSelectedIndex(0);
+					buttonGroup.setSelected(rdbtnMale.getModel(), true);
 				}
 			}
 		});
@@ -197,5 +223,39 @@ public class Interface {
 		JLabel lblGender = new JLabel("Gender");
 		lblGender.setBounds(12, 58, 80, 14);
 		frame.getContentPane().add(lblGender);
+		
+		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String fname = firstNameField.getText();
+				String lname = lastNameField.getText();
+				String dept = departmentField.getText();
+				String phone = phoneField.getText();
+				String gender;
+				if(rdbtnMale.isSelected()){
+					gender = "Male";
+				}else if(rdbtnFemale.isSelected()){
+					gender = "Female";
+				}else{
+					gender = "Other";
+				}
+				String title = (String) comboBox.getSelectedItem().toString();
+				if(firstNameField.getText().length() == 0 || lastNameField.getText().length() == 0
+						|| departmentField.getText().length() == 0 || phoneField.getText().length() == 0){
+					return;
+				}else{
+					toJsonString.add( new Employee(fname, lname, dept, phone, gender, title));
+					
+					firstNameField.setText("");
+					lastNameField.setText("");
+					departmentField.setText("");
+					phoneField.setText("");
+					comboBox.setSelectedIndex(0);
+					buttonGroup.setSelected(rdbtnMale.getModel(), true);
+				}
+			}
+		});
+		btnAdd.setBounds(160, 224, 117, 29);
+		frame.getContentPane().add(btnAdd);
 	}
 }
