@@ -160,6 +160,7 @@ public class Interface {
 				}else{
 					gender = "Other";
 				}
+				ArrayList<Employee> sendArray = new ArrayList<Employee>();
 				String title = (String) comboBox.getSelectedItem().toString();
 				int submitCounter = 0;
 				int arraySize = toJsonString.size();
@@ -167,12 +168,18 @@ public class Interface {
 						|| departmentField.getText().length() == 0 || phoneField.getText().length() == 0){
 					Gson g = new Gson();
 					while(toJsonString.size() != 0){
-						String out = g.toJson(toJsonString.get(0));
+						sendArray.add(toJsonString.get(0));
+						String out = g.toJson(sendArray);
 						out = "ADD " + out;
+						try{
 						newProxy.add(out);
+						}catch(Exception a){
+							break;
+						}
 						if(newProxy.serverReceived()){
 							submitCounter++;
 						}
+						sendArray.remove(0);
 						toJsonString.remove(0);
 					}
 					if(submitCounter == arraySize && (submitCounter != 0)){
@@ -185,12 +192,14 @@ public class Interface {
 					toJsonString.add( new Employee(fname, lname, dept, phone, gender, title));
 					arraySize = toJsonString.size();
 					while(toJsonString.size() != 0){
-						String out = g.toJson(toJsonString.get(0));
+						sendArray.add(toJsonString.get(0));
+						String out = g.toJson(sendArray);
 						out = "ADD " + out;
 						newProxy.add(out);
 						if(newProxy.serverReceived()){
 							submitCounter++;
 						}
+						sendArray.remove(0);
 						toJsonString.remove(0);
 					}
 					if(submitCounter == arraySize && (submitCounter != 0)){
